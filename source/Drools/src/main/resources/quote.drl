@@ -1,0 +1,21 @@
+import com.mattdamon.drools.dto.QuoteDomain;
+
+rule Shanghai
+	salience 100
+	lock-on-active
+	when
+		$quoteDomain : QuoteDomain(orgId == "0000")
+	then
+		$quoteDomain.setPremiumRate(0.8);
+		$quoteDomain.recordPriceLog("Beijing");
+end
+
+rule Beijing
+	salience 99
+	lock-on-active
+	when
+		$quoteDomain : QuoteDomain(orgId == "0001")
+	then
+		$quoteDomain.setPremiumRate(0.9);
+		$quoteDomain.recordPriceLog("Beijing");
+end
